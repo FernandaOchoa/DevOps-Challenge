@@ -98,7 +98,7 @@ resource containerAppEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' 
   }
 }
 
-// Cuando ya hagas el deploy de tu app recuerda cambiar el targetPort de 80 a: 3000
+// Cambia el targetPort a 3000 si tu aplicación está sirviendo en ese puerto
 
 resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
   name: '${namePrefix}containerapp'
@@ -108,7 +108,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
     configuration: {
       ingress: {
         external: true
-        targetPort: 3000
+        targetPort: 3000  // El puerto cambiado
         allowInsecure: false
         traffic: [
           {
@@ -139,7 +139,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
       containers: [
         {
           name: '${namePrefix}containerapp'
-          image: 'fer8aacr.azurecr.io/fer8a/app:latest'
+          image: 'fer8aacr.azurecr.io/fer8a/app:latest'  // La imagen del repo
           env: [
             {
               name: 'MONGODB_URI'
