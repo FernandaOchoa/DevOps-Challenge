@@ -84,7 +84,7 @@ resource containerRegistry 'microsoft.containerregistry/registries@2021-12-01-pr
   }
 }
 
-resource containerAppEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' = {
+resource conatinerAppEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' = {
   name: '${namePrefix}containerappenvironment'
   location: location
   properties: {
@@ -98,17 +98,17 @@ resource containerAppEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' 
   }
 }
 
-// Cambia el targetPort a 3000 si tu aplicación está sirviendo en ese puerto
+// Cuando ya hagas el deploy de tu app recuerda cambiar el targetPort a: 3000
 
 resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
   name: '${namePrefix}containerapp'
   location: location
   properties: {
-    managedEnvironmentId: containerAppEnvironment.id
+    managedEnvironmentId: conatinerAppEnvironment.id
     configuration: {
       ingress: {
         external: true
-        targetPort: 3000  // Cambiado a 3000 para que coincida con el puerto de la aplicación
+        targetPort: 3000
         allowInsecure: false
         traffic: [
           {
@@ -139,7 +139,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
       containers: [
         {
           name: '${namePrefix}containerapp'
-          image: 'fer8aacr.azurecr.io/github-action/container-app:latest'  // Imagen correcta
+          image: 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
           env: [
             {
               name: 'MONGODB_URI'
