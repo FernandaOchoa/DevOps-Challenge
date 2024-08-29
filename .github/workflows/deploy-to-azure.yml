@@ -1,0 +1,38 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Log into Azure
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Build the Docker image
+      - name: Build and push Docker image
+        run: |
+          az acr build --registry ${{ vars.AZURE_PREFIX }}acr --image ${{ vars.AZURE_PREFIX }}/app:${{ github.sha }} .
+
+      # Deploy to Azure Container Apps
+      - name: Deploy to Azure Container Apps
+        run: |
+          az containerapp update --name ${{ vars.AZURE_PREFIX }}containerapp \
+                                --resource-group ${{ vars.AZURE_RG }} \
+                                --environment ${{ vars.AZURE_PREFIX }}containerappenvironment \
+                                --image ${{ vars.AZURE_PREFIX }}acr.azurecr.io/${{ vars.AZURE_PREFIX }}/app:${{ github.sha }} \
+                                --min-replicas 1 \
+                                --max-replicas 3 \
+                                --cpu 0.5 --memory 1.0Gi \
+                                --ingress external --target-port 3000
