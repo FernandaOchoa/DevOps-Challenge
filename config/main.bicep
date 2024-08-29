@@ -84,7 +84,7 @@ resource containerRegistry 'microsoft.containerregistry/registries@2021-12-01-pr
   }
 }
 
-resource conatinerAppEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' = {
+resource containerAppEnvironment 'Microsoft.App/managedEnvironments@2022-03-01' = {
   name: '${namePrefix}containerappenvironment'
   location: location
   properties: {
@@ -104,7 +104,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
   name: '${namePrefix}containerapp'
   location: location
   properties: {
-    managedEnvironmentId: conatinerAppEnvironment.id
+    managedEnvironmentId: containerAppEnvironment.id
     configuration: {
       ingress: {
         external: true
