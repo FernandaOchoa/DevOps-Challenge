@@ -139,7 +139,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
       containers: [
         {
           name: '${namePrefix}containerapp'
-          image: 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+          image: 'fer8aacr.azurecr.io/fer8a/app:latest'
           env: [
             {
               name: 'MONGODB_URI'
