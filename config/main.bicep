@@ -108,7 +108,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
     configuration: {
       ingress: {
         external: true
-        targetPort: 3000  // El puerto cambiado
+        targetPort: 3000  // Cambiado a 3000 para que coincida con el puerto de la aplicación
         allowInsecure: false
         traffic: [
           {
@@ -139,7 +139,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
       containers: [
         {
           name: '${namePrefix}containerapp'
-          image: 'fer8aacr.azurecr.io/fer8a/app:latest'  // La imagen del repo
+          image: 'fer8aacr.azurecr.io/github-action/container-app:latest'  // Imagen correcta
           env: [
             {
               name: 'MONGODB_URI'
