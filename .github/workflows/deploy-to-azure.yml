@@ -35,4 +35,4 @@ jobs:
                                 --min-replicas 1 \
                                 --max-replicas 3 \
                                 --cpu 0.5 --memory 1.0Gi \
-                                --ingress external --target-port 3000
+                                --ingress external --target-port 80
