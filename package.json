@@ -19,7 +19,7 @@
     "@types/node": "18.7.5",
     "@types/react": "18.3.4",
     "cypress": "^13.1.0",
-    "mongodb-memory-server": "^8.9.1",
+    "mongodb-memory-server": "^10.0.1",
     "start-server-and-test": "^2.0.3",
     "typescript": "5.5.4"
   }
